@@ -3,7 +3,7 @@ import "./App.css";
 import AllUsers from "./Components/AllUsers";
 import { Route, Routes, useParams } from "react-router-dom";
 import SinglePlayer from "./Components/SinglePlayer";
-import { fetchAllData } from "./API";
+import { fetchAllData, postData } from "./API";
 
 const COHORT_NAME = "2410-FTB-ET-WEB-FT";
 const API = `https://fsa-puppy-bowl.herokuapp.com/api/${COHORT_NAME}/players`;
@@ -29,26 +29,11 @@ function App() {
   }, [apiCall]);
   const formHandler = async (e) => {
     e.preventDefault();
-    try {
-      const resonse = await fetch(API, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          breed: breed,
-          imageUrl:
-            imageUrl.length === 0
-              ? "https://learndotresources.s3.amazonaws.com/workshop/60ad725bbe74cd0004a6cba0/puppybowl-default-dog.png"
-              : imageUrl,
-        }),
-      });
-      const result = await resonse.json();
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+    const addData = await postData({
+      name: name,
+      breed: breed,
+      imageUrl: imageUrl,
+    });
     setName("");
     setBreed("");
     setImageUrl("");

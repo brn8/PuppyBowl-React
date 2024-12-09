@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { deleteData } from "../API";
 
 const COHORT_NAME = "2410-FTB-ET-WEB-FT";
 const API = `https://fsa-puppy-bowl.herokuapp.com/api/${COHORT_NAME}/players`;
@@ -13,15 +14,7 @@ const singlePlayer = ({
   let { id } = useParams();
   const navigate = useNavigate();
   const deleteHandler = async () => {
-    try {
-      const resonse = await fetch(`${API}/${id}`, {
-        method: "DElETE",
-      });
-      const result = await resonse.json();
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+    const removePlayer = await deleteData(id);
     setApiCall(!apiCall);
     navigate("/");
     setFormVisibility(true);
