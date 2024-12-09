@@ -19,7 +19,7 @@ export const postData = async (obj) => {
         imageUrl:
           obj.imageUrl.length === 0
             ? "https://learndotresources.s3.amazonaws.com/workshop/60ad725bbe74cd0004a6cba0/puppybowl-default-dog.png"
-            : imageUrl,
+            : obj.imageUrl,
       }),
     });
     const result = await resonse.json();
